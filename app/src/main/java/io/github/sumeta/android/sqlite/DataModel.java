@@ -4,12 +4,11 @@ import android.provider.BaseColumns;
 
 public class DataModel {
 
-    public static final String TABLE = "history";
+    public static final String TABLE = "data";
 
     public DataModel(){ }
 
-    public DataModel(int id, String text){
-        this.id = id;
+    public DataModel(String text){
         this.text = text;
     }
 

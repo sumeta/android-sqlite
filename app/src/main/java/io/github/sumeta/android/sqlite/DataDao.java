@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class DataDao extends DBHelper {
         List<DataModel> models = new ArrayList<>();
 
         Cursor cursor = sqLiteDatabase.query
-                (DataModel.TABLE, null, null, null, null, null, "created_date DESC");
+                (DataModel.TABLE, null, null, null, null, null,null);
 
         if (cursor != null) {
             cursor.moveToFirst();
@@ -71,11 +72,15 @@ public class DataDao extends DBHelper {
     }
 
     public long insert(DataModel model) {
+        Log.i("DB","Start Insert");
         ContentValues values = new ContentValues();
         values.put(DataModel.Column.TEXT, model.getText());
 
         long id = sqLiteDatabase.insert(DataModel.TABLE, null, values);
         sqLiteDatabase.close();
+
+        Log.i("DB","Inserted");
+
         return id;
     }
 

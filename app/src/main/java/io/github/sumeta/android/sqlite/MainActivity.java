@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +22,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FloatingActionButton fab = findViewById(R.id.fab);
+
+        DataDao dao = new DataDao(this);
+        List<DataModel> dataList = dao.getList();
+        for (DataModel data:dataList) {
+            System.out.println("database : " + data.getText());
+        }
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //m_Text = input.getText().toString();
+                String mText = input.getText().toString();
+                DataDao dao = new DataDao(getBaseContext());
+                dao.insert(new DataModel(mText));
                 Toast.makeText(getBaseContext(),"OK",Toast.LENGTH_SHORT).show();
             }
         });
